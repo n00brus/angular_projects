@@ -1,0 +1,52 @@
+.tesla-climate__item {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid black;
+  text-align: center;
+}
+.tesla-climate__item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: lightblue;
+  opacity: 0;
+  transition: 0.2s;
+}
+.checkbox:checked + .tesla-climate__item::before {
+  z-index: -1;
+  opacity: 1;
+}
+.checkbox {
+  display: none;
+}
+.tesla-climate__item-text {
+  z-index: 1;
+}
+
+.teslaspeed {
+  font-size: 40px;
+}
+.tesla-tires {
+  width: 100px;
+  position: relative;
+  height: 70px;
+  text-align: center;
+  border: 2px solid black;
+}
+.checkbox:checked + .tesla-tires::before {
+  content: "";
+  position: absolute;
+  height: 70px;
+  width: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid blue;
+}

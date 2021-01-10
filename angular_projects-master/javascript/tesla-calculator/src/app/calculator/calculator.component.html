@@ -1,0 +1,43 @@
+
+<form [formGroup]="profileForm">
+    <div >{{miles}} miles</div>
+    
+        <label>
+            <div>speed:</div>
+            <input type="number" value="55" (change)="countmiles()" formControlName="speed" step=5 min="45" max="75"
+                class="teslaspeed">
+        </label>
+
+        <label>
+            <div>temperature:</div>
+            <input type="number" (change)="countmiles()" formControlName="outsideTemperature" value="20" step=10
+                min="-10" max="40" class="teslaspeed">
+        </label>
+
+        <label class="" *ngIf="this.profileForm.get('outsideTemperature').value >= 20">
+            <input type="checkbox" (change)="countmiles()" formControlName="acc" name="climate" class="checkbox">
+            <div class="tesla-climate__item"> <br><br> <span class="tesla-climate__item-text">ACC</span></div>
+        </label>
+
+        <label class="" *ngIf="this.profileForm.get('outsideTemperature').value <= 10">
+            <input type="checkbox" (change)="countmiles()" formControlName="heat" name="climate" class="checkbox">
+            <div class="tesla-climate__item"> <br><br><span class="tesla-climate__item-text">HEAT</span></div>
+        </label>
+
+        <label>
+            <input type="radio" name="climate" (change)="countmiles()" formControlName="tires" name="tires" value="19"
+                class="checkbox">
+            <div class="tesla-tires"><br>19</div>
+        </label>
+        
+        <label>
+            <input type="radio" name="climate" (change)="countmiles()" formControlName="tires" name="tires" value="21"
+                class="checkbox">
+            <div class="tesla-tires"><br> 21</div>
+
+        </label>
+    
+
+</form>
+
+
