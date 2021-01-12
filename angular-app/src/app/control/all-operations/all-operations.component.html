@@ -11,14 +11,29 @@
         <div *ngFor="let operation1 of operations">
             <div class="operation" (click)="selectOperation($event,operation1)">
                 <div class="operation-text">
-                    <div class="operation-text-header">{{findCategory(operation1)}}</div>
+                    <div class="operation-text-header">
+                        {{findCategory(operation1)}}
+                    </div>
 
 
-                    <div class="operation-text-description">{{operation1.description}}</div>
+                    <div>
+                        <form [formGroup]="profileForm">
+                            <span *ngIf="operation1.id !=selectedOperation.id"
+                                class="operation-text-description">{{operation1.description}}</span>
+                            <textarea *ngIf="operation1.id ==selectedOperation.id" class="operation-text-description"
+                                formControlName="editedDescription">{{operation1.description}}</textarea>
+                        </form>
+
+                    </div>
 
                 </div>
+                <span class="mergeOperation" (click)="mergeOperation($event)" dataOperationid="{{operation1}}">
+
+                </span>
+
                 <span class="deleteoperation" (click)="deleteOperations($event)"
                     dataCategoryid="{{operation1.id}}"></span>
+
 
                 <div class="operation-value">{{operation1.value}} грн </div>
             </div>

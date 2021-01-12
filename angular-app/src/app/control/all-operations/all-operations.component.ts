@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 // import { allCategories } from '../data/categories.data';
 import { Category, OperationTypeCode } from '../models/category.model';
 import { Operation } from '../models/operations.model';
@@ -14,7 +15,16 @@ export class AllOperationsComponent implements OnInit {
   @Input() selectedType: OperationTypeCode;
 
   @Output() deleteOperation = new EventEmitter();
-  @Output() selectedOperation = new EventEmitter();
+  @Output() mergedOperation = new EventEmitter();
+  profileForm = new FormGroup({
+    editedDescription: new FormControl(''),
+  });
+  selectedOperation: Operation = {
+    id: -1,
+    idCategory: 6,
+    value: 343,
+    description: 'dsfdsf',
+  };
   operations: Operation[] = [];
   categories: Category[] = [];
   categoryid: number = -1; //если -1 то выводит все операции, другие числа буду выводить операции у которых айди== айди категории
@@ -22,6 +32,8 @@ export class AllOperationsComponent implements OnInit {
 
   ngOnInit(): void {}
   ngOnChanges(): void {
+    console.log(this.selectedOperation);
+
     this.filtercategories();
     this.filteroperations();
     this.categorylist();
@@ -58,7 +70,10 @@ export class AllOperationsComponent implements OnInit {
     this.deleteOperation.emit(ev.target.dataCategoryid);
   }
   selectOperation(ev, operation) {
-    this.selectedOperation.emit(operation);
+    this.selectedOperation = operation;
+    this.profileForm.setValue({
+      editedDescription: this.selectedOperation.description,
+    });
   }
   findCategory(operation) {
     let something = this.categories.find((e) => {
@@ -76,5 +91,19 @@ export class AllOperationsComponent implements OnInit {
     if (this.selectedType == 'consumption') {
       return 'Расход';
     }
+  }
+  mergeOperation(ev) {
+    this.selectedOperation.description = this.profileForm.get(
+      'editedDescription'
+    ).value;
+
+    this.mergedOperation.emit(this.selectedOperation);
+
+    this.selectedOperation = {
+      id: -1,
+      idCategory: 6,
+      value: 343,
+      description: 'dsfdsf',
+    };
   }
 }

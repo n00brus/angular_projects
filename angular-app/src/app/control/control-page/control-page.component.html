@@ -12,6 +12,6 @@
         [selectedType]="selectedTypeCode" [selectedOperation]="selectedOperation"></app-operation-editor>
 
     <app-all-operations [selectedType]="selectedTypeCode" [allOperations]="allOperations" [allCategories]="categories"
-        (deleteOperation)="deletedOperation($event)" (selectedOperation)="selectOperation($event)">
+        (deleteOperation)="deletedOperation($event)" (mergedOperation)="mergeOperation($event)">
     </app-all-operations>
 </div>
