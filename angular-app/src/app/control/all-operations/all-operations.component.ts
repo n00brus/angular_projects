@@ -19,12 +19,6 @@ export class AllOperationsComponent implements OnInit {
   profileForm = new FormGroup({
     editedDescription: new FormControl(''),
   });
-  selectedOperation: Operation = {
-    id: -1,
-    idCategory: 6,
-    value: 343,
-    description: 'dsfdsf',
-  };
   operations: Operation[] = [];
   categories: Category[] = [];
   categoryid: number = -1; //если -1 то выводит все операции, другие числа буду выводить операции у которых айди== айди категории
@@ -32,11 +26,10 @@ export class AllOperationsComponent implements OnInit {
 
   ngOnInit(): void {}
   ngOnChanges(): void {
-    console.log(this.selectedOperation);
-
     this.filtercategories();
     this.filteroperations();
     this.categorylist();
+    console.log(this.operations);
   }
   filtercategories() {
     this.categories = this.allCategories.filter(
@@ -70,9 +63,18 @@ export class AllOperationsComponent implements OnInit {
     this.deleteOperation.emit(ev.target.dataCategoryid);
   }
   selectOperation(ev, operation) {
-    this.selectedOperation = operation;
+    this.operations.find((o) => {
+      if (o.selected == true) {
+        return (o.selected = false);
+      }
+    });
     this.profileForm.setValue({
-      editedDescription: this.selectedOperation.description,
+      editedDescription: operation.description,
+    });
+    this.operations.find((o) => {
+      if (o.id == operation.id) {
+        return (o.selected = true);
+      }
     });
   }
   findCategory(operation) {
@@ -92,18 +94,10 @@ export class AllOperationsComponent implements OnInit {
       return 'Расход';
     }
   }
-  mergeOperation(ev) {
-    this.selectedOperation.description = this.profileForm.get(
-      'editedDescription'
-    ).value;
-
-    this.mergedOperation.emit(this.selectedOperation);
-
-    this.selectedOperation = {
-      id: -1,
-      idCategory: 6,
-      value: 343,
-      description: 'dsfdsf',
-    };
+  mergeOperation(ev, operation: Operation) {
+    operation.description = this.profileForm.get('editedDescription').value;
+    delete operation.selected;
+    // operation.selected = false;
+    this.mergedOperation.emit(operation);
   }
 }
