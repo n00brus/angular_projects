@@ -1,0 +1,16 @@
+<div class="app">
+    <mat-form-field class="example-full-width">
+        <mat-label>Input Todo</mat-label>
+        <input matInput placeholder="Enter todo text" [(ngModel)]="newTodo">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="AddTodo()" class="someclass1">Add Todo</button>
+    <mat-list dense>
+        <mat-list-item *ngFor="let todo of todos">
+            {{todo.title}}
+            <mat-checkbox [ngModel]="todo.completed" (change)="CompleteTodo($event,todo.id)" class="someclass">
+            </mat-checkbox>
+            <button mat-stroked-button color="warn" (click)="DeleteTodo(todo.id)">Delete Todo</button>
+        </mat-list-item>
+
+    </mat-list>
+</div>

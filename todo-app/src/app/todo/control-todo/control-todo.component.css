@@ -1,0 +1,27 @@
+
+  .app{
+    margin: 0 auto;
+    width: 1200px;
+  }
+  .example-full-width {
+    width: 400px;
+  }
+ 
+  .mat-list-item{
+    color: black;
+    /* font-size: 25px; */
+  }
+  .mat-form-field{
+    background-color: grey;
+  }
+  .mat-checkbox{
+    border: 1px solid black;
+  }
+  .someclass{
+    margin: 0 0 0 20px;
+
+
+  }
+  .someclass1{
+    margin-left: 20px;
+  }
